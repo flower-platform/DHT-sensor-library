@@ -13,9 +13,13 @@
 
 class DHTSensor {
 protected:
+
 	uint8_t pin;
-	unsigned long lastTime;
+
+	unsigned long lastTime = 0;
+
 	double lastTemperature;
+
 	double lastHumidity;
 
 public:
@@ -31,9 +35,7 @@ public:
 	 */
 	DHTSensor(uint8_t pin);
 
-	unsigned int pollInterval;
-
-	void setup();
+	unsigned int pollInterval = 1000;
 
 	void loop();
 
@@ -43,9 +45,6 @@ public:
 
 DHTSensor::DHTSensor(uint8_t pin) {
 	this->pin = pin;
-};
-
-void DHTSensor::setup() {
 	lastTime = 0;
 	lastHumidity = -1000;
 	lastTemperature = -1000;
@@ -54,7 +53,7 @@ void DHTSensor::setup() {
 	if (pollInterval <= 0) {
 		pollInterval = 1000;
 	}
-}
+};
 
 void DHTSensor::loop() {
 	if ((unsigned long int)(millis() - lastTime) < pollInterval) {
